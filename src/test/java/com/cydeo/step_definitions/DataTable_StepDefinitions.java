@@ -5,12 +5,14 @@ import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import javax.sql.rowset.BaseRowSet;
 import java.util.List;
 
 public class DataTable_StepDefinitions {
+
 
     @Then("user should see fruits I like")
     public void user_should_see_fruits_i_like(List<String> fruits) {
@@ -20,10 +22,11 @@ public class DataTable_StepDefinitions {
 
     }
 
-
     @Given("User is on the dropdowns page of practice tool")
     public void user_is_on_the_dropdowns_page_of_practice_tool() {
+
         Driver.getDriver().get("https://practice.cydeo.com/dropdown");
+
     }
 
     DropdownsPage dropdownsPage = new DropdownsPage();
@@ -36,6 +39,6 @@ public class DataTable_StepDefinitions {
 
         Assert.assertEquals(expectedMonths, actualMonths);
         //Assert will check the size of the lists first. If it is matching it will check content 1 by 1.
-    }
 
+    }
 }

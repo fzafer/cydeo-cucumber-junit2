@@ -8,9 +8,10 @@ Feature: Wikipedia search functionality and verifications
     And User clicks wiki search button
     Then User sees "Bill Gates" is in the wiki title
 
+    @this
   Scenario: Wikipedia Search Functionality Header Verification
     Given User is on Wikipedia home page
-    When User types "Steve Jobs" in the wiki search box
+    When User types "Stev Jobs" in the wiki search box
     And User clicks wiki search button
     Then User sees "Steve Jobs" is in the main header
 

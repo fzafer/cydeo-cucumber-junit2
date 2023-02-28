@@ -18,8 +18,8 @@ public class Login_StepDefinitions {
     @Then("user should see the dashboard")
     public void user_should_see_the_dashboard() {
         System.out.println("User should see the dashboard");
-    }
 
+    }
 
     @When("user enters student username")
     public void userEntersStudentUsername() {
@@ -40,7 +40,6 @@ public class Login_StepDefinitions {
     public void userEntersAdminPassword() {
         System.out.println("user enters admin password");
     }
-
 
     @Given("user is on the library login page")
     public void userIsOnTheLibraryLoginPage() {
