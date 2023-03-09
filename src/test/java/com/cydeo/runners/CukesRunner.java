@@ -7,28 +7,26 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        /*
-         plugin = {
-                 "json:target/cucumber.json",
-                 "html:target/cucumber/report.html",
-                 "junit:target/junit/junit-report.xml",
-                 "rerun:target/rerun.txt",},
-         features = "src/test/resources/features",
-         publish = true
-     */
-         plugin = {
-                 //"pretty",
-                 "html:target/cucumber-report.html",
-                 "rerun:target/rerun.txt",
-                 "json:target/cucumber.json",
-             //    "me.jvt.cucumber.report.PrettyReports:target/cucumber",
-         },
-         features = "src/test/resources/features",
-         glue = "com/cydeo/step_definitions",
-         dryRun = false,
-         tags = "@FLEET10-564" //feature'daki TEST EXECUTION'ı alıyoruz
-
-        //@FLEET10-591
+        plugin = {
+                "json:target/cucumber.json",
+                "html:target/cucumber/report.html",
+                "junit:target/junit/junit-report.xml",
+                "rerun:target/rerun.txt",},
+        features = "src/test/resources/features",
+        glue = "com/cydeo/step_definitions",
+        publish = true
+       /*
+        plugin = {
+                //"pretty",
+                "html:target/cucumber-report.html",
+                "rerun:target/rerun.txt",
+                "me.jvt.cucumber.report.PrettyReports:target/cucumber",
+        },
+        features = "src/test/resources/features",
+        glue = "com/cydeo/step_definitions",
+        dryRun = false,
+        tags = ""
+*/
         //"@librarian or @student"
 )
 
