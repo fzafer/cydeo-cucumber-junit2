@@ -29,13 +29,13 @@ public class FleetGru_MainPage {
 
     @FindBy(xpath ="//*[@id=\"login-form\"]/fieldset/div[1]/div")
     public WebElement invalidPasswordText;
-
+/*
     @FindBy(xpath ="//*[@id=\"container\"]/div[2]/div[1]/div/div/div[1]/div/h1")
     public WebElement QuickLaunchpadText;
 
     @FindBy(xpath ="//*[@id=\"container\"]/div[2]/div[1]/div/div/div[1]/div/h1")
     public WebElement DashboardText;
-
+*/
     @FindBy(xpath ="//*[@id=\"login-form\"]/fieldset/div[3]/a")
     public WebElement forgotPasswordLink;
 
@@ -45,14 +45,14 @@ public class FleetGru_MainPage {
     @FindBy(xpath ="//*[@id=\"remember_me\"]")   //*[@id="login-form"]/fieldset/div[2]/label/span[1]
     public WebElement rememberMeCheckBox;
 
+/*
     @FindBy(xpath ="//*[@id=\"user-menu\"]/a")
     public WebElement profileName;
 
     @FindBy(xpath ="//*[@id=\"user-menu\"]/ul/li[4]/a")
     public WebElement logoutButton;
 
-
-
+*/
 
 
 

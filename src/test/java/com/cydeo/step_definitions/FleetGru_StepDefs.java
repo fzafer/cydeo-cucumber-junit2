@@ -1,25 +1,28 @@
 package com.cydeo.step_definitions;
 
+import com.cydeo.pages.FleetGru_DashBoardPAge;
 import com.cydeo.pages.FleetGru_MainPage;
 import com.cydeo.utilities.BrowserUtils;
 import com.cydeo.utilities.ConfigurationReader;
 import com.cydeo.utilities.Driver;
+import com.cydeo.utilities.MyUtils.SwitchTo;
 import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+
 public class FleetGru_StepDefs {
 
     FleetGru_MainPage fleetGruMainPage = new FleetGru_MainPage();
+    FleetGru_DashBoardPAge fleetGruDashBoardPage = new FleetGru_DashBoardPAge();
     String profileName1 = "";
     String profileName2 = "";
 
@@ -39,9 +42,9 @@ public class FleetGru_StepDefs {
     @Then("The user is on the Quick Launcpad page")
     public void the_user_is_on_the_quick_launcpad_page() {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
-        wait.until(ExpectedConditions.visibilityOf(fleetGruMainPage.QuickLaunchpadText));
+        wait.until(ExpectedConditions.visibilityOf(fleetGruDashBoardPage.QuickLaunchpadText));
 
-        Assert.assertEquals(fleetGruMainPage.QuickLaunchpadText.getText(), "Quick Launchpad");
+        Assert.assertEquals(fleetGruDashBoardPage.QuickLaunchpadText.getText(), "Quick Launchpad");
     }
 
 
@@ -55,9 +58,9 @@ public class FleetGru_StepDefs {
     @Then("The user is on the Dashboard page")
     public void the_user_is_on_the_dashboard_page() {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
-        wait.until(ExpectedConditions.visibilityOf(fleetGruMainPage.DashboardText));
+        wait.until(ExpectedConditions.visibilityOf(fleetGruDashBoardPage.DashboardText));
 
-        Assert.assertTrue(fleetGruMainPage.DashboardText.getText().contains("Dashboard"));
+        Assert.assertTrue(fleetGruDashBoardPage.DashboardText.getText().contains("Dashboard"));
     }
 
 
@@ -107,10 +110,31 @@ public class FleetGru_StepDefs {
         fleetGruMainPage.password.sendKeys("something");
         fleetGruMainPage.loginButton.click();
     }
+
+    // Assert.assertEquals(fleetGruMainPage.username.getAttribute("required"),"true");
+
+
     @Then("The user sees {string} in username field")
     public void the_user_sees_in_username_field(String string) {
-        Assert.assertEquals(fleetGruMainPage.username.getAttribute("required"),"true");
+        System.out.println(fleetGruMainPage.username.getAttribute("validationMessage"));
+        Assert.assertTrue(popUpMessage("Lütfen bu alanı doldurun."));
     }
+
+
+        public boolean popUpMessage(String message) {
+            boolean flag = false;
+            if (fleetGruMainPage.username.getText().equals("")){
+                if(fleetGruMainPage.username.getAttribute("validationMessage").equals(message)){
+                    flag = true;
+                }
+            }
+            if(fleetGruMainPage.password.getText().equals("")){
+                if(fleetGruMainPage.password.getAttribute("validationMessage").equals(message)){
+                    flag = true;
+                }
+            }
+            return flag;
+        }
 
     @When("The user does not enter a username and a password")
     public void the_user_does_not_enter_a_username_and_a_password() {
@@ -153,23 +177,23 @@ public class FleetGru_StepDefs {
     @When("The user sees the name in the profile")
     public void the_user_sees_the_name_in_the_profile() {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
-        wait.until(ExpectedConditions.visibilityOf(fleetGruMainPage.QuickLaunchpadText));
+        wait.until(ExpectedConditions.visibilityOf(fleetGruDashBoardPage.QuickLaunchpadText));
 
-        profileName1 = fleetGruMainPage.profileName.getText();
+        profileName1 = fleetGruDashBoardPage.profileName.getText();
         System.out.println("profileName1 = " + profileName1);
 
-        fleetGruMainPage.profileName.click();
+        fleetGruDashBoardPage.profileName.click();
         BrowserUtils.sleep(1);
-        fleetGruMainPage.logoutButton.click();
+        fleetGruDashBoardPage.logoutButton.click();
         BrowserUtils.sleep(1);
     }
 
     @When("The user sees again the name in the profile")
     public void the_user_sees_again_the_name_in_the_profile() {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
-        wait.until(ExpectedConditions.visibilityOf(fleetGruMainPage.DashboardText));
+        wait.until(ExpectedConditions.visibilityOf(fleetGruDashBoardPage.DashboardText));
 
-        profileName2 = fleetGruMainPage.profileName.getText();
+        profileName2 = fleetGruDashBoardPage.profileName.getText();
         System.out.println("profileName2 = " + profileName2);
 
     }
@@ -181,9 +205,9 @@ public class FleetGru_StepDefs {
 
     @When("The user logs out")
     public void the_user_logs_out() {
-        fleetGruMainPage.profileName.click();
+        fleetGruDashBoardPage.profileName.click();
         BrowserUtils.sleep(1);
-        fleetGruMainPage.logoutButton.click();
+        fleetGruDashBoardPage.logoutButton.click();
         BrowserUtils.sleep(1);
     }
 
@@ -200,12 +224,28 @@ public class FleetGru_StepDefs {
 
     @When("The user closes all the tabs")
     public void the_user_closes_all_the_tabs() {
-        Driver.closeDriver();
+      JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+     js.executeScript("window.open()");
+
+    js.executeScript("window.open()");
+    Driver.getDriver().get("https://www.google.com/");
+
+    ArrayList<String> tabs = new ArrayList<>(Driver.getDriver().getWindowHandles());
+    BrowserUtils.sleep(2);
+        Driver.getDriver().switchTo().window(tabs.get(0));
+
+        Driver.getDriver().close();
+
+
+       // SwitchTo.switchTo(2);
 
     }
     @When("The user opens Dashboard page")
     public void the_user_opens_dashboard_page() {
         Driver.getDriver().get("https://qa.fleetgru.com/");
+       // BrowserUtils.sleep(3);
+       // fleetGruMainPage.loginButton.click();
+        BrowserUtils.sleep(5);
     }
 
     @When("The user wait for {int} mins")

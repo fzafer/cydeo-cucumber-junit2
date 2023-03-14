@@ -25,7 +25,7 @@ Background:
     Then The user sees "Invalid username or password"
 
   @FLEET10-571
-  Scenario: Login with an invalid password
+  Scenario: Login with an invalid username
     When The user enters an invalid username
     Then The user sees "Invalid username or password"
 
